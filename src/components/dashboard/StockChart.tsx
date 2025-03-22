@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   LineChart, 
@@ -32,16 +31,13 @@ const StockChart = () => {
       
       // Create realistic looking price movements
       const changePercent = (Math.random() - 0.5) * volatility;
-      const prevPrice = i === 0 ? basePrice : result[i-1].price;
+      const prevPrice = i === 0 ? basePrice : generatedData[i-1].price;
       const price = prevPrice * (1 + changePercent);
       
-      const result: any[] = [];
-      result.push({
+      return {
         date: date.toISOString().split('T')[0],
         price: parseFloat(price.toFixed(2)),
-      });
-      
-      return result[0];
+      };
     });
   };
   
