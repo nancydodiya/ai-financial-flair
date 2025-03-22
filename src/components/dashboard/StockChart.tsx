@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { 
   LineChart, 
@@ -25,7 +26,9 @@ const StockChart = () => {
     const volatility = 0.05;
     const points = 30; // 30 days of data
     
-    return Array.from({ length: points }, (_, i) => {
+    const generatedData: Array<{date: string, price: number}> = [];
+    
+    for (let i = 0; i < points; i++) {
       const date = new Date();
       date.setDate(date.getDate() - (points - i - 1));
       
@@ -34,11 +37,13 @@ const StockChart = () => {
       const prevPrice = i === 0 ? basePrice : generatedData[i-1].price;
       const price = prevPrice * (1 + changePercent);
       
-      return {
+      generatedData.push({
         date: date.toISOString().split('T')[0],
         price: parseFloat(price.toFixed(2)),
-      };
-    });
+      });
+    }
+    
+    return generatedData;
   };
   
   const detailedData = generateDetailedData();
